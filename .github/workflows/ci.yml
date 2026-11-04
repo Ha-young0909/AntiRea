@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -v
+
+      # feat/ci-report에서 난독화 전/후 리포트를 아티팩트로 올리는 단계를 추가합니다.
+      # - name: Generate obfuscation report
+      #   run: python -m src.obfuscate --report-only > obfuscation-report.txt
+      # - name: Upload report artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: obfuscation-report
+      #     path: obfuscation-report.txt
