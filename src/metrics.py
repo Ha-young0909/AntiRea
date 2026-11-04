@@ -34,6 +34,12 @@ class ComparisonResult:
 def measure(source: str) -> ReadabilityMetrics:
     """소스 코드 한 벌의 가독성 지표를 계산한다.
 
+    계약(구현이 반드시 지킬 것):
+    - 순수 함수: 파일·네트워크 접근 없이 입력 문자열만으로 계산한다.
+    - 입력이 올바른 Python 문법이 아니면 ValueError를 던진다.
+    - identifier_readability, comment_ratio는 항상 0~1 범위다.
+    - 원본과 난독화본에 같은 함수를 그대로 호출한다(비교 기준이 같아야 한다).
+
     구현은 feat/metrics 브랜치에서 채운다(radon으로 복잡도, 사전 기반으로 식별자 평가 등).
     """
     raise NotImplementedError("feat/metrics에서 구현합니다.")
