@@ -38,6 +38,13 @@ def analyze_code(source: str, *, reference_explanation: str | None = None) -> An
 
     reference_explanation이 주어지면(보통 원본에 대한 설명) 그것과 비교해
     correctness_score를 매긴다. 구현은 feat/ai-analyzer 브랜치에서 채운다.
+
+    계약(구현이 반드시 지킬 것):
+    - correctness_score는 0~1이며, 1에 가까울수록 AI가 코드의 의도를 정확히 파악한 것이다.
+      (난독화가 효과적이면 after 점수가 before보다 낮아진다. 발표 핵심 지표.)
+    - reference_explanation이 없으면(원본 분석) 기준 설명이 없으므로 점수는 1.0으로 둔다.
+    - API 키는 환경변수(.env의 ANTHROPIC_API_KEY)에서만 읽고, 없으면 RuntimeError를 던진다.
+    - 테스트에서 LLM 호출을 모킹할 수 있도록 호출부를 별도 함수로 분리한다.
     """
     raise NotImplementedError("feat/ai-analyzer에서 구현합니다.")
 

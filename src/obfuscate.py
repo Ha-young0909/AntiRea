@@ -40,6 +40,12 @@ class ObfuscationOptions:
 def obfuscate_source(source: str, options: ObfuscationOptions | None = None) -> tuple[str, ObfuscationReport]:
     """소스 코드 문자열을 받아 (난독화된 코드, 리포트)를 반환한다.
 
+    계약(구현이 반드시 지킬 것):
+    - 동작 보존: 난독화본을 실행했을 때의 결과(출력·반환값·예외)는 원본과 같아야 한다.
+    - 재현성: options.seed가 같고 입력이 같으면 출력도 같아야 한다.
+    - 입력이 올바른 Python 문법이 아니면 ValueError를 던진다.
+    - 리포트의 개수(renamed_count 등)는 실제로 바뀐 만큼만 센다.
+
     구현은 feat/obfuscator-core 브랜치에서 채운다. 지금은 시그니처만 고정한다.
     """
     raise NotImplementedError("feat/obfuscator-core에서 구현합니다.")
